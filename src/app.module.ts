@@ -12,8 +12,19 @@ import { ExcerciseItemService } from './excercise-item/excercise-item.service';
 import { FoodItemModule } from './food-item/food-item.module';
 
 @Module({
-  imports: [AuthModule, PrismaModule, ConfigModule.forRoot({ isGlobal: true }), UserModule, ExcerciseItemModule, FoodItemModule],
-  controllers: [AppController, UserController, ExcerciseItemController],
+  imports: [
+    AuthModule,
+    PrismaModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    UserModule,
+    ExcerciseItemModule,
+    FoodItemModule,
+  ],
+  controllers: [
+    AppController,
+    UserController,
+    ExcerciseItemController,
+  ],
   providers: [AppService, ExcerciseItemService],
 })
 export class AppModule {}
