@@ -3,7 +3,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { FoodItemDto } from 'src/dto';
+import {
+  FoodItemDto,
+  FoodItemUpdateDto,
+} from 'src/dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -46,6 +49,37 @@ export class FoodItemService {
         dateOfConsumption:
           foodItem.dateOfConsumption,
       },
+    });
+  }
+
+  async updateFoodItemById(
+    userId: number,
+    updatedItem: FoodItemUpdateDto,
+  ) {
+    const item =
+      await this.prisma.foodItem.findUnique({
+        where: {
+          id: updatedItem.id,
+        },
+      });
+
+    if (!item) {
+      throw new NotFoundException(
+        `The item you are trying to update does not exist.`,
+      );
+    }
+
+    if (item?.userId !== userId) {
+      throw new ForbiddenException(
+        'The item you are trying to update does not belong to you.',
+      );
+    }
+
+    return this.prisma.foodItem.update({
+      where: {
+        id: item.id,
+      },
+      data: updatedItem,
     });
   }
 

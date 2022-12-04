@@ -5,12 +5,16 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
 import { GetUser } from 'src/auth/decorator';
 import { JwtGuard } from 'src/auth/guard';
-import { ExcerciseItemDto } from 'src/dto';
+import {
+  ExcerciseItemDto,
+  ExcerciseItemUpdateDto,
+} from 'src/dto';
 import { ExcerciseItemService } from './excercise-item.service';
 
 @UseGuards(JwtGuard)
@@ -49,14 +53,25 @@ export class ExcerciseItemController {
     );
   }
 
+  @Patch(':id')
+  updateExcerciseItemById(
+    @GetUser('id') userId: number,
+    @Body() updatedItem: ExcerciseItemUpdateDto,
+  ) {
+    return this.excerciseItemService.updateExcerciseItemById(
+      userId,
+      updatedItem,
+    );
+  }
+
   @Delete(':id')
   deleteExcerciseItemById(
     @GetUser('id') userId: number,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseIntPipe) itemId: number,
   ) {
     return this.excerciseItemService.deleteExcerciseItemById(
       userId,
-      id,
+      itemId,
     );
   }
 }

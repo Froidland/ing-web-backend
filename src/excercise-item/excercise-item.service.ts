@@ -3,7 +3,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ExcerciseItemDto } from 'src/dto';
+import {
+  ExcerciseItemDto,
+  ExcerciseItemUpdateDto,
+} from 'src/dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -46,6 +49,37 @@ export class ExcerciseItemService {
         dateOfExcercise:
           excerciseItem.dateOfExcercise,
       },
+    });
+  }
+
+  async updateExcerciseItemById(
+    userId: number,
+    updatedItem: ExcerciseItemUpdateDto,
+  ) {
+    const item =
+      await this.prisma.excerciseItem.findUnique({
+        where: {
+          id: updatedItem.id,
+        },
+      });
+
+    if (!item) {
+      throw new NotFoundException(
+        `The item you are trying to update does not exist.`,
+      );
+    }
+
+    if (item?.userId !== userId) {
+      throw new ForbiddenException(
+        'The item you are trying to update does not belong to you.',
+      );
+    }
+
+    return this.prisma.excerciseItem.update({
+      where: {
+        id: item.id,
+      },
+      data: updatedItem,
     });
   }
 
