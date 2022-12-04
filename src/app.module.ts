@@ -12,6 +12,7 @@ import { ExcerciseItemService } from './excercise-item/excercise-item.service';
 import { FoodItemModule } from './food-item/food-item.module';
 import { FoodItemService } from './food-item/food-item.service';
 import { UserService } from './user/user.service';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { UserService } from './user/user.service';
     UserModule,
     ExcerciseItemModule,
     FoodItemModule,
+    AdminModule,
   ],
   controllers: [
     AppController,
