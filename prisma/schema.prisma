@@ -21,7 +21,7 @@ model User {
   role   Role @relation(fields: [roleId], references: [id])
   roleId Int  @default(1)
 
-  calorieItems   FoodItem[]
+  foodItems      FoodItem[]
   excerciseItems ExcerciseItem[]
 
   createdAt DateTime @default(now())
