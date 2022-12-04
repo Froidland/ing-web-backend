@@ -13,7 +13,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class FoodItemService {
   constructor(private prisma: PrismaService) {}
 
-  getFoodItems(userId: number) {
+  getFoodItemsByUserId(userId: number) {
     return this.prisma.foodItem.findMany({
       where: {
         userId,
@@ -22,7 +22,7 @@ export class FoodItemService {
   }
 
   // Get items from the last 24 hours.
-  getLatestExcerciseItems(userId: number) {
+  getLatestFoodItemsByUserId(userId: number) {
     const date = new Date(
       Date.now() - 60 * 60 * 24 * 1000,
     ); // A day ago.
@@ -37,7 +37,7 @@ export class FoodItemService {
     });
   }
 
-  createExcerciseItemByUserId(
+  createFoodItemByUserId(
     userId: number,
     foodItem: FoodItemDto,
   ) {
@@ -54,12 +54,14 @@ export class FoodItemService {
 
   async updateFoodItemById(
     userId: number,
+    roleId: number,
+    itemId: number,
     updatedItem: FoodItemUpdateDto,
   ) {
     const item =
       await this.prisma.foodItem.findUnique({
         where: {
-          id: updatedItem.id,
+          id: itemId,
         },
       });
 
@@ -69,22 +71,25 @@ export class FoodItemService {
       );
     }
 
-    if (item?.userId !== userId) {
-      throw new ForbiddenException(
-        'The item you are trying to update does not belong to you.',
-      );
+    if (roleId !== 2) {
+      if (item?.userId !== userId) {
+        throw new ForbiddenException(
+          'The item you are trying to update does not belong to you.',
+        );
+      }
     }
 
     return this.prisma.foodItem.update({
       where: {
-        id: item.id,
+        id: itemId,
       },
       data: updatedItem,
     });
   }
 
-  async deleteExcerciseItemById(
+  async deleteFoodItemById(
     userId: number,
+    roleId: number,
     itemId: number,
   ) {
     const item =
@@ -100,13 +105,15 @@ export class FoodItemService {
       );
     }
 
-    if (item?.userId !== userId) {
-      throw new ForbiddenException(
-        'The item you are trying to delete does not belong to you.',
-      );
+    if (roleId !== 2) {
+      if (item?.userId !== userId) {
+        throw new ForbiddenException(
+          'The item you are trying to delete does not belong to you.',
+        );
+      }
     }
 
-    return this.prisma.excerciseItem.delete({
+    return this.prisma.foodItem.delete({
       where: {
         id: itemId,
       },

@@ -29,7 +29,7 @@ export class FoodItemController {
   @HttpCode(HttpStatus.OK)
   @Get('me')
   getOwnFoodItems(@GetUser('id') userId: number) {
-    return this.foodItemService.getFoodItems(
+    return this.foodItemService.getFoodItemsByUserId(
       userId,
     );
   }
@@ -39,7 +39,7 @@ export class FoodItemController {
   getOwnLatestExcerciseItems(
     @GetUser('id') userId: number,
   ) {
-    return this.foodItemService.getLatestExcerciseItems(
+    return this.foodItemService.getLatestFoodItemsByUserId(
       userId,
     );
   }
@@ -50,7 +50,7 @@ export class FoodItemController {
     @GetUser('id') userId: number,
     @Body() dto: FoodItemDto,
   ) {
-    return this.foodItemService.createExcerciseItemByUserId(
+    return this.foodItemService.createFoodItemByUserId(
       userId,
       dto,
     );
@@ -60,10 +60,14 @@ export class FoodItemController {
   @Patch(':id')
   updateExcerciseItemById(
     @GetUser('id') userId: number,
+    @GetUser('roleId') roleId: number,
+    @Param('id') itemId: number,
     @Body() updatedItem: FoodItemUpdateDto,
   ) {
     return this.foodItemService.updateFoodItemById(
       userId,
+      roleId,
+      itemId,
       updatedItem,
     );
   }
@@ -72,10 +76,12 @@ export class FoodItemController {
   @Delete(':id')
   deleteExcerciseItemById(
     @GetUser('id') userId: number,
+    @GetUser('roleId') roleId: number,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    return this.foodItemService.deleteExcerciseItemById(
+    return this.foodItemService.deleteFoodItemById(
       userId,
+      roleId,
       id,
     );
   }

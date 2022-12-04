@@ -7,10 +7,6 @@ import {
 
 export class ExcerciseItemUpdateDto {
   @IsNotEmpty()
-  @IsNumber()
-  id: number;
-
-  @IsNotEmpty()
   @IsString()
   name: string;
 

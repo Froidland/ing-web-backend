@@ -31,7 +31,7 @@ export class ExcerciseItemController {
   getOwnExcerciseItems(
     @GetUser('id') userId: number,
   ) {
-    return this.excerciseItemService.getExcerciseItems(
+    return this.excerciseItemService.getExcerciseItemsByUserId(
       userId,
     );
   }
@@ -41,7 +41,7 @@ export class ExcerciseItemController {
   getOwnLatestExcerciseItems(
     @GetUser('id') userId: number,
   ) {
-    return this.excerciseItemService.getLatestExcerciseItems(
+    return this.excerciseItemService.getLatestExcerciseItemsByUserId(
       userId,
     );
   }
@@ -62,10 +62,14 @@ export class ExcerciseItemController {
   @Patch(':id')
   updateExcerciseItemById(
     @GetUser('id') userId: number,
+    @GetUser('roleId') roleId: number,
+    @Param('id') itemId: number,
     @Body() updatedItem: ExcerciseItemUpdateDto,
   ) {
     return this.excerciseItemService.updateExcerciseItemById(
       userId,
+      roleId,
+      itemId,
       updatedItem,
     );
   }
@@ -74,10 +78,12 @@ export class ExcerciseItemController {
   @Delete(':id')
   deleteExcerciseItemById(
     @GetUser('id') userId: number,
+    @GetUser('roleId') roleId: number,
     @Param('id', ParseIntPipe) itemId: number,
   ) {
     return this.excerciseItemService.deleteExcerciseItemById(
       userId,
+      roleId,
       itemId,
     );
   }

@@ -13,7 +13,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class ExcerciseItemService {
   constructor(private prisma: PrismaService) {}
 
-  getExcerciseItems(userId: number) {
+  getExcerciseItemsByUserId(userId: number) {
     return this.prisma.excerciseItem.findMany({
       where: {
         userId,
@@ -22,7 +22,9 @@ export class ExcerciseItemService {
   }
 
   // Get items from the last 24 hours.
-  getLatestExcerciseItems(userId: number) {
+  getLatestExcerciseItemsByUserId(
+    userId: number,
+  ) {
     const date = new Date(
       Date.now() - 60 * 60 * 24 * 1000,
     ); // A day ago.
@@ -54,12 +56,14 @@ export class ExcerciseItemService {
 
   async updateExcerciseItemById(
     userId: number,
+    roleId: number,
+    itemId: number,
     updatedItem: ExcerciseItemUpdateDto,
   ) {
     const item =
       await this.prisma.excerciseItem.findUnique({
         where: {
-          id: updatedItem.id,
+          id: itemId,
         },
       });
 
@@ -69,15 +73,17 @@ export class ExcerciseItemService {
       );
     }
 
-    if (item?.userId !== userId) {
-      throw new ForbiddenException(
-        'The item you are trying to update does not belong to you.',
-      );
+    if (roleId !== 2) {
+      if (item?.userId !== userId) {
+        throw new ForbiddenException(
+          'The item you are trying to update does not belong to you.',
+        );
+      }
     }
 
     return this.prisma.excerciseItem.update({
       where: {
-        id: item.id,
+        id: itemId,
       },
       data: updatedItem,
     });
@@ -85,6 +91,7 @@ export class ExcerciseItemService {
 
   async deleteExcerciseItemById(
     userId: number,
+    roleId: number,
     itemId: number,
   ) {
     const item =
@@ -96,14 +103,16 @@ export class ExcerciseItemService {
 
     if (!item) {
       throw new NotFoundException(
-        `Item with id ${itemId} not found.`,
+        `The item you are trying to update does not exist.`,
       );
     }
 
-    if (item?.userId !== userId) {
-      throw new ForbiddenException(
-        'The item you are trying to delete does not belong to you.',
-      );
+    if (roleId !== 2) {
+      if (item?.userId !== userId) {
+        throw new ForbiddenException(
+          'The item you are trying to update does not belong to you.',
+        );
+      }
     }
 
     return this.prisma.excerciseItem.delete({
