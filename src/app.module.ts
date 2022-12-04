@@ -10,6 +10,8 @@ import { ExcerciseItemController } from './excercise-item/excercise-item.control
 import { ExcerciseItemModule } from './excercise-item/excercise-item.module';
 import { ExcerciseItemService } from './excercise-item/excercise-item.service';
 import { FoodItemModule } from './food-item/food-item.module';
+import { FoodItemService } from './food-item/food-item.service';
+import { UserService } from './user/user.service';
 
 @Module({
   imports: [
@@ -25,6 +27,11 @@ import { FoodItemModule } from './food-item/food-item.module';
     UserController,
     ExcerciseItemController,
   ],
-  providers: [AppService, ExcerciseItemService],
+  providers: [
+    AppService,
+    ExcerciseItemService,
+    FoodItemService,
+    UserService,
+  ],
 })
 export class AppModule {}
