@@ -28,6 +28,7 @@ export class AuthService {
           firstName: dto.firstName,
           lastName: dto.lastName,
           email: dto.email,
+          weight: dto.weight,
           hash,
         },
         select: {

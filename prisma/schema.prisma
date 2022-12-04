@@ -21,6 +21,8 @@ model User {
   role   Role @relation(fields: [roleId], references: [id])
   roleId Int  @default(1)
 
+  weight Float
+
   foodItems      FoodItem[]
   excerciseItems ExcerciseItem[]
 
