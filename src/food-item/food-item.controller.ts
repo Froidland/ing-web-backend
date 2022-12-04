@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -24,6 +26,7 @@ export class FoodItemController {
     private foodItemService: FoodItemService,
   ) {}
 
+  @HttpCode(HttpStatus.OK)
   @Get('me')
   getOwnFoodItems(@GetUser('id') userId: number) {
     return this.foodItemService.getFoodItems(
@@ -31,6 +34,7 @@ export class FoodItemController {
     );
   }
 
+  @HttpCode(HttpStatus.OK)
   @Get('me/latest')
   getOwnLatestExcerciseItems(
     @GetUser('id') userId: number,
@@ -40,6 +44,7 @@ export class FoodItemController {
     );
   }
 
+  @HttpCode(HttpStatus.CREATED)
   @Post('me')
   createExcerciseItem(
     @GetUser('id') userId: number,
@@ -51,6 +56,7 @@ export class FoodItemController {
     );
   }
 
+  @HttpCode(HttpStatus.OK)
   @Patch(':id')
   updateExcerciseItemById(
     @GetUser('id') userId: number,
@@ -62,6 +68,7 @@ export class FoodItemController {
     );
   }
 
+  @HttpCode(HttpStatus.OK)
   @Delete(':id')
   deleteExcerciseItemById(
     @GetUser('id') userId: number,

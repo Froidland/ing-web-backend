@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -24,6 +26,7 @@ export class ExcerciseItemController {
     private excerciseItemService: ExcerciseItemService,
   ) {}
 
+  @HttpCode(HttpStatus.OK)
   @Get('me')
   getOwnExcerciseItems(
     @GetUser('id') userId: number,
@@ -33,6 +36,7 @@ export class ExcerciseItemController {
     );
   }
 
+  @HttpCode(HttpStatus.OK)
   @Get('me/latest')
   getOwnLatestExcerciseItems(
     @GetUser('id') userId: number,
@@ -42,6 +46,7 @@ export class ExcerciseItemController {
     );
   }
 
+  @HttpCode(HttpStatus.CREATED)
   @Post('me')
   createExcerciseItem(
     @GetUser('id') userId: number,
@@ -53,6 +58,7 @@ export class ExcerciseItemController {
     );
   }
 
+  @HttpCode(HttpStatus.OK)
   @Patch(':id')
   updateExcerciseItemById(
     @GetUser('id') userId: number,
@@ -64,6 +70,7 @@ export class ExcerciseItemController {
     );
   }
 
+  @HttpCode(HttpStatus.OK)
   @Delete(':id')
   deleteExcerciseItemById(
     @GetUser('id') userId: number,
