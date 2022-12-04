@@ -12,7 +12,7 @@ export class UserService {
           id: userId,
         },
         include: {
-          calorieItems: {
+          foodItems: {
             where: {
               userId,
             },
