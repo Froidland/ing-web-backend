@@ -39,8 +39,6 @@ model FoodItem {
   name         String
   calorieCount Int
 
-  dateOfConsumption DateTime
-
   createdAt DateTime @default(now())
 
   @@map("food_items")
@@ -52,8 +50,6 @@ model ExcerciseItem {
   userId       Int
   name         String
   calorieCount Int
-
-  dateOfExcercise DateTime
 
   createdAt DateTime @default(now())
 

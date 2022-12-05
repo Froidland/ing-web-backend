@@ -46,8 +46,6 @@ export class FoodItemService {
         userId,
         name: foodItem.name,
         calorieCount: foodItem.calorieCount,
-        dateOfConsumption:
-          foodItem.dateOfConsumption,
       },
     });
   }

@@ -48,8 +48,6 @@ export class ExcerciseItemService {
         userId,
         name: excerciseItem.name,
         calorieCount: excerciseItem.calorieCount,
-        dateOfExcercise:
-          excerciseItem.dateOfExcercise,
       },
     });
   }

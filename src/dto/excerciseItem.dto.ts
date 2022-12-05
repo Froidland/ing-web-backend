@@ -13,8 +13,4 @@ export class ExcerciseItemDto {
   @IsNotEmpty()
   @IsNumber()
   calorieCount: number;
-
-  @IsNotEmpty()
-  @IsDate()
-  dateOfExcercise: Date;
 }

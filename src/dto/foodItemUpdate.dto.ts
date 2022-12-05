@@ -13,8 +13,4 @@ export class FoodItemUpdateDto {
   @IsNotEmpty()
   @IsNumber()
   calorieCount: number;
-
-  @IsNotEmpty()
-  @IsDate()
-  dateOfConsumption: Date;
 }
