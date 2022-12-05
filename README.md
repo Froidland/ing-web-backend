@@ -1,3 +1,8 @@
+## Requeriments
+```
+- Node.js v16 o superior (se probaron v16.18.1 y v18.12.1)
+```
+
 ## Running the app
 Antes de correr la aplicacion se debe hacer una instalacion del cliente prisma y tambien de las dependencias requeridas por el proyecto para luego migrar el esquema de datos ubicado en la carpeta prisma del directorio raiz.
 
