@@ -6,7 +6,7 @@ Antes de correr la aplicacion se debe hacer una instalacion del cliente prisma y
 $ npm install
 ```
 
-Para realizar la migracion, se debe crear un archivo .env tal como se indica en .env-example y rellenarlo con los datos necesarios. Esto asume que se cuenta con un servidor con MySql o MariaDB.
+Para realizar la migracion, se debe crear un archivo .env tal como se indica en .env-example y rellenarlo con los datos necesarios. Esto asume que se cuenta con un servidor MySql o MariaDB y un usuario con permisos administrativos dentro de esta.
 
 Luego se ejecutan los siguientes comandos:
 
