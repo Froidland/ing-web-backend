@@ -42,7 +42,11 @@ export class AuthService {
         },
       });
       // return jwt token
-      return this.signToken(user.id, user.email);
+      return this.signToken(
+        user.id,
+        user.email,
+        user.roleId,
+      );
     } catch (error) {
       if (
         error instanceof
@@ -88,16 +92,22 @@ export class AuthService {
     }
 
     // return jwt token
-    return this.signToken(user.id, user.email);
+    return this.signToken(
+      user.id,
+      user.email,
+      user.roleId,
+    );
   }
 
   async signToken(
     userId: number,
     email: string,
+    roleId: number,
   ): Promise<{ access_token: string }> {
     const payload = {
       sub: userId,
       email,
+      roleId,
     };
     const secret = this.config.get('JWT_SECRET');
 
