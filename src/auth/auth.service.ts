@@ -28,10 +28,12 @@ export class AuthService {
           firstName: dto.firstName,
           lastName: dto.lastName,
           email: dto.email,
+          weight: dto.weight,
           hash,
         },
         select: {
           id: true,
+          roleId: true,
           firstName: true,
           lastName: true,
           email: true,
@@ -40,7 +42,11 @@ export class AuthService {
         },
       });
       // return jwt token
-      return this.signToken(user.id, user.email);
+      return this.signToken(
+        user.id,
+        user.email,
+        user.roleId,
+      );
     } catch (error) {
       if (
         error instanceof
@@ -86,23 +92,29 @@ export class AuthService {
     }
 
     // return jwt token
-    return this.signToken(user.id, user.email);
+    return this.signToken(
+      user.id,
+      user.email,
+      user.roleId,
+    );
   }
 
   async signToken(
     userId: number,
     email: string,
+    roleId: number,
   ): Promise<{ access_token: string }> {
     const payload = {
       sub: userId,
       email,
+      roleId,
     };
     const secret = this.config.get('JWT_SECRET');
 
     const token = await this.jwt.signAsync(
       payload,
       {
-        expiresIn: '60m',
+        expiresIn: '24h',
         secret: secret,
       },
     );

@@ -10,10 +10,30 @@ import { ExcerciseItemController } from './excercise-item/excercise-item.control
 import { ExcerciseItemModule } from './excercise-item/excercise-item.module';
 import { ExcerciseItemService } from './excercise-item/excercise-item.service';
 import { FoodItemModule } from './food-item/food-item.module';
+import { FoodItemService } from './food-item/food-item.service';
+import { UserService } from './user/user.service';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
-  imports: [AuthModule, PrismaModule, ConfigModule.forRoot({ isGlobal: true }), UserModule, ExcerciseItemModule, FoodItemModule],
-  controllers: [AppController, UserController, ExcerciseItemController],
-  providers: [AppService, ExcerciseItemService],
+  imports: [
+    AuthModule,
+    PrismaModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    UserModule,
+    ExcerciseItemModule,
+    FoodItemModule,
+    AdminModule,
+  ],
+  controllers: [
+    AppController,
+    UserController,
+    ExcerciseItemController,
+  ],
+  providers: [
+    AppService,
+    ExcerciseItemService,
+    FoodItemService,
+    UserService,
+  ],
 })
 export class AppModule {}
