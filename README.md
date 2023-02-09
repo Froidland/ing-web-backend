@@ -1,4 +1,4 @@
-## Requeriments
+## Requirements
 ```
 - Node.js v16 o superior (se probaron v16.18.1 y v18.12.1)
 ```
